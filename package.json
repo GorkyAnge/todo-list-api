@@ -4,6 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:unit": "jest --testPathPattern=unit",
+    "test:integration": "jest --testPathPattern=integration",
     "start": "node index.js"
   },
   "keywords": [],

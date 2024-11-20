@@ -6,7 +6,7 @@ const sequelize = new Sequelize({
 
 const Task = sequelize.define("Task", {
   title: { type: DataTypes.STRING, allowNull: false },
-  description: { type: DataTypes.TEXT },
+  description: { type: DataTypes.STRING },
   status: { type: DataTypes.STRING, defaultValue: "pending" },
 });
 
