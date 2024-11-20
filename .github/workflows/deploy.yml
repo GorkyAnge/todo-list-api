@@ -36,7 +36,7 @@ jobs:
         run: npm install
 
       - name: Run Unit Tests
-        run: npm test --unit
+        run: npm run test:unit
 
   test-integration:
     runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
         run: npm install
 
       - name: Run Integration Tests
-        run: npm test --integration
+        run: npm run test:integration
 
   packing:
     runs-on: ubuntu-latest
@@ -71,10 +71,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Package Application
+      - name: Clean and Package Application
         run: |
-          mkdir dist
-          cp -r * dist
+          rm -rf dist                # Limpia la carpeta dist si ya existe
+          mkdir dist                 # Crea la carpeta dist
+          rsync -av --progress . dist/ --exclude dist  # Copia todo excepto dist
 
   deploy:
     runs-on: ubuntu-latest
