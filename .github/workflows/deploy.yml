@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline for ToDo List API
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,13 +24,11 @@ jobs:
       - name: Run Tests
         run: npm test
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Deploy to Render
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
         run: |
-          curl -X POST "https://api.render.com/v1/services/{service-id}/deploys"
+          curl -X POST \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            https://api.render.com/v1/services/srv-csuirha3esus73cjef9g/deploys
